@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-	return (
-		<nav className="navbar navbar-light bg-light mb-3">
-			<Link to="/">
-				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-			</Link>
-			<div className="ml-auto">
-				<Link to="/demo">
-					<button className="btn btn-primary">Check the Context in action</button>
-				</Link>
-			</div>
-		</nav>
-	);
+  const { store, actions } = useContext(Context);
+  console.log(store.favorites);
+
+  return (
+    <nav className="navbar navbar-light bg-light mb-3">
+      <Link to="/">
+        <img
+          src="https://logos-world.net/wp-content/uploads/2020/11/Star-Wars-Logo.png"
+          style={{ width: "60px" }}
+        ></img>
+      </Link>
+	  <div className="dropdown">
+	  <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+  {store.favorites.map((item, index) => (
+                <li className="dropdown-item" key={index}>
+                  {item}
+				  <button type="button" onClick={()=>actions.removefavorito(item)} className="btn btn-primary">Eliminar</button>
+                </li>
+				
+              ))}
+  </ul>
+</div>
+      
+    </nav>
+  );
 };
