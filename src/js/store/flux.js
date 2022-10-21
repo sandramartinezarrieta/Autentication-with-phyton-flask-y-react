@@ -11,7 +11,8 @@ const getState = ({
             favorites: [],
             everyplanet: {},
             vehicles: [],
-            everyvehicle: {}
+            everyvehicle: {},
+            auth: false
         },
         actions: {
             // funcion para traer cada caracter a travez del fetch
@@ -95,7 +96,35 @@ const getState = ({
                     })
                 })
             },
+            login: async (email, password) => {
+                try {
+                    const response = await fetch('https://3000-sandramarti-starwarsres-feykzi1qdcg.ws-us72.gitpod.io/login', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
 
+                    if (response.status === 200) {
+                        const data = await response.json();
+                        localStorage.setItem('token', data.msg)
+                        console.log(data);
+                        setStore({
+                            auth: true
+                        })
+                        return true;
+
+                    }
+
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
+            },
 
             //   
             // Use getActions to call a function within a fuction
