@@ -125,7 +125,9 @@ const getState = ({
                     return false;
                 }
             },
-
+            logout: () => {
+                localStorage.removeItem('token')
+            },
             //   
             // Use getActions to call a function within a fuction
             exampleFunction: () => {

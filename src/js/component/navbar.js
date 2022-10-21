@@ -4,8 +4,8 @@ import { Context } from "../store/appContext";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
-  console.log(store.favorites);
-
+  console.log(store.auth);
+let auth = store.auth
   return (
     <nav className="navbar navbar-light bg-light mb-3">
       <Link to="/">
@@ -27,6 +27,8 @@ export const Navbar = () => {
 				
               ))}
   </ul>
+  
+  {auth ?<button type="button" class="btn btn-outline-dark" onClick={()=>actions.logout()}>Logout:QUE LA FUERZA TE ACOMPAÑE</button>: null}
 </div>
       
     </nav>
